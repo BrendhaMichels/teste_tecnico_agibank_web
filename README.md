@@ -1,4 +1,4 @@
-# Projeto de Automação de Testes Web - Blog do Agi
+# Projeto de Automação de Testes Web - Blog do Agibank
 
 ### Este projeto contém testes automatizados para a funcionalidade de busca do [Blog do Agibank](https://blogdoagi.com.br/)
 
