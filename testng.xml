@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="BlogAgiTestSuite">
+
+    <listeners>
+        <listener class-name="com.agi.blog.reports.ExtentManager"/>
+    </listeners>
+
+    <test name="SearchTests">
+        <classes>
+            <class name="com.agi.blog.tests.SearchTest"/>
+        </classes>
+    </test>
+
+</suite>
