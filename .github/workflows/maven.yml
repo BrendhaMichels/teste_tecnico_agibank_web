@@ -24,9 +24,9 @@ jobs:
       # O navegador Chrome já vem pré-instalado nas máquinas virtuais do GitHub.
       - name: Run tests with Maven
         run: mvn clean test
-        
+
       - name: Upload test report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: extent-report 
-          path: reports/extent-report.html 
+          name: extent-report
+          path: reports/extent-report.html
