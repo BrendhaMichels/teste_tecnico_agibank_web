@@ -1,9 +1,9 @@
 package com.agi.blog.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions; // Importe a classe Actions
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,25 +14,24 @@ public class HomePage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private By searchIcon = By.cssSelector("a.astra-search-icon");
     private By searchInput = By.id("search-field");
+    private By searchForm = By.className("search-form");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void performSearch(String searchTerm) {
-        // Espera até que o ícone de busca esteja presente e clicável
-        WebElement iconElement = wait.until(ExpectedConditions.elementToBeClickable(searchIcon));
+        // 1. Espera o campo de busca estar presente no HTML
+        WebElement searchField = wait.until(ExpectedConditions.presenceOfElementLocated(searchInput));
 
-        Actions actions = new Actions(driver);
-        actions.moveToElement(iconElement).click().perform();
+        // 2. Usa JavaScript para colocar o texto no campo
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].value = arguments[1];", searchField, searchTerm);
 
-        WebElement searchField = wait.until(ExpectedConditions.elementToBeClickable(searchInput));
-
-        // Digita e submete a busca
-        searchField.sendKeys(searchTerm);
-        searchField.submit();
+        // 3. Submete o formulário
+        WebElement form = driver.findElement(searchForm);
+        form.submit();
     }
 }
