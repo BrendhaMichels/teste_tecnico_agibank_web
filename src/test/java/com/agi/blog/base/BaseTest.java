@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chrome.ChromeOptions; // Importe a classe de Opções
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -15,7 +15,6 @@ import org.testng.annotations.Listeners;
 
 import java.time.Duration;
 
-@Listeners({ExtentManager.class})
 public class BaseTest {
 
     protected WebDriver driver;
@@ -27,12 +26,22 @@ public class BaseTest {
     @BeforeMethod
     public void setUp() {
         WebDriverManager.chromedriver().setup();
+
         ChromeOptions options = new ChromeOptions();
+
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
+
+        if (System.getenv("GITHUB_ACTIONS") != null) {
+            options.addArguments("--headless");
+        }
+
         driver = new ChromeDriver(options);
+
+        driver.manage().window().maximize();
         driver.get("https://blogdoagi.com.br/");
+
         handleCookieBanner();
     }
 
