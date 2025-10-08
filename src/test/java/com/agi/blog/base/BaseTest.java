@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
@@ -20,14 +19,8 @@ public class BaseTest {
     @BeforeMethod
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--window-size=1920,1080");
-
-        driver = new ChromeDriver(options);
-
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get("https://blogdoagi.com.br/");
         handleCookieBanner();
     }
